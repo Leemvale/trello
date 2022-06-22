@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useFocus } from "../../../hooks/useFocus/useFocus";
 import { NewItemButton, NewItemFormContainer, NewItemInput } from "./NewItemForm.styles";
 
 type NewItemFormProps = {
@@ -7,6 +8,7 @@ type NewItemFormProps = {
 
 export const NewItemForm = ({ onAdd }: NewItemFormProps) => {
   const [text, setText] = useState("");
+  const inputRef = useFocus();
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
@@ -19,6 +21,7 @@ export const NewItemForm = ({ onAdd }: NewItemFormProps) => {
   return (
     <NewItemFormContainer>
       <NewItemInput
+        ref={inputRef}
         value={text}
         onChange={onInputChange}
       />
