@@ -1,3 +1,3 @@
-export type Item = {
+export interface Item {
   id: string,
 }

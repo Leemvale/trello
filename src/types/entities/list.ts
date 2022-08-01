@@ -1,6 +1,6 @@
 import { Task } from "./task";
 
-export type List = {
+export interface List {
   id: string,
   text: string,
   tasks: Task[],
