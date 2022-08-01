@@ -1,11 +1,14 @@
 import React, {createContext, useContext, useReducer} from 'react';
 import { v4 as uuid } from 'uuid';
-import { List } from '../types/entities/list';
-import { Action } from '../types/stateManagement/action';
+import { List } from '../types/interfaces/entities/list';
+import { DragItem } from '../types/types/dnd/ColumnDragItem';
+import { Action } from '../types/types/stateManagement/action';
 import { findItemIndexById } from '../utils/findItemIndexById';
+import { moveItem } from '../utils/dnd/moveItem';
 
-export type AppState = {
+export interface AppState {
   lists: List[],
+  draggedItem?: DragItem,
 }
 
 const appData: AppState = {
@@ -74,8 +77,20 @@ const appStateReducer = (state: AppState, action: Action): AppState => {
         lists: newLists,
       }
     }
+    case "MOVE_LIST": {
+      const { dragIndex, hoverIndex } = action.payload
+      const lists = moveItem(state.lists, dragIndex, hoverIndex)
+      return { 
+        ...state,
+        lists
+      }
+    }
+    case "SET_DRAGGED_ITEM": {
+      console.log(action.payload)
+      return { ...state, draggedItem: action.payload }
+    }
     default: {
-      return state;
+      return state
     }
   }
 };

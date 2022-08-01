@@ -9,3 +9,11 @@ export const AppContainer = styled.div`
   padding: 20px;
   width: 100%;
 `
+
+interface DragPreviewContainerProps {
+  isHidden?: boolean
+}
+
+export const DragPreviewContainer = styled.div <DragPreviewContainerProps> `
+  opacity: ${props => (props.isHidden ? 0.3 : 1)};
+`
